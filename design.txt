@@ -1,0 +1,59 @@
+Step 1: Identify your Entities
+
+Step 2: Adding in the fields for your Entities
+- What makes up this Entity?
+- Whats important to store for each Entity
+- Define the datatype for each fields
+
+Step 3: Create the relationship between Entities
+- How are these entities related : Tell the story
+- Add the PK and FK
+
+Step 4: Drawing the ERD
+- Giving a visual representation
+
+
+
+Building a library app
+
+- searching a book 
+- searching books with genre
+- viewing books by popularity
+- searching books by Author
+- checking if a book is available (looking at this info we know we need a book table)
+
+User features: 
+- user authentication (login/register)
+- user update
+- user delete
+- user can add books to their loan (looking at this info we know we need a user table)
+
+- user can take out many loans
+- one loan can include many books 
+- one book can be loaned many times (looking at this info we know we need a loan table)
+
+Entities: "What info should we store in each table"
+
+user (what makes up a user "What info should we store")
+- email VC, first_name VC, last_name VC, password VC, DOB DATE, address VC, role VC
+
+book
+- title VC, -author VC, genre VC, published_date DATE, isbn VC, age_category VC, stock INT
+
+loan
+- borrower, books, borrow_date, return_date
+
+Users
+id PK
+
+Loans 
+id PK
+- user_id Fk 
+
+loan_book (Junction Table) many to many 
+Loan_id FK | Book_id FK
+
+relationships
+user - loan: 1 to many: 1 user can take many loans, one loan connects back to one user
+
+loan - books: M:M 1 loan can include many books, 1 book can be loaned many times
