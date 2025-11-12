@@ -41,7 +41,7 @@ book
 - title VC, -author VC, genre VC, published_date DATE, isbn VC, age_category VC, stock INT
 
 loan
-- borrower, books, borrow_date, return_date
+- borrower, borrow_date, return_date
 
 Users
 id PK
