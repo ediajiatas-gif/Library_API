@@ -1,0 +1,18 @@
+Make sure everything is clear and straight forward 
+
+3 different states of your code (red, green, blue) - helps right solid code
+- writing tests before coding 
+
+steps
+(red)
+- write a test
+- test fails
+(green zone)
+- write code to test pass
+- code passes 
+(refactor)
+- improve code 
+- clean code
+- start 
+
+test, code, postman, document 

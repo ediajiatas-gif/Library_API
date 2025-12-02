@@ -6,6 +6,8 @@
 # from flask_marshmallow import Marshmallow #Importing Marshmallow class
 # from marshmallow import ValidationError #importing Marshmallow class
 
+# WHat is an ORM:
+# ORM is a tool that allows us to use python objects instead of sql queries to talk to DB
 
 # #Step 1
 # app = Flask(__name__) #Instatiating our Flask app
@@ -103,3 +105,5 @@
 # # Install Marshmallow (library / package)
 # # pip instal flask_marshmallow, marshmallow_sqlalchemy 
 # #schema = validate data, deserialize (json to python), serialize (python to json)
+
+#flask limiter limits amount of requests

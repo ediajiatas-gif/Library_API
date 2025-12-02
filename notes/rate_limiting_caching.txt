@@ -1,0 +1,23 @@
+Flask limiter - protects APIs from abuse (excessive traffic or DDOS attacks - when computers flood website or server with a lot of fake traffic, site stops working)
+
+Flask caching - enhance performance to reduce repetitive db queries and improving response times
+
+                            What is Flask Limiter?
+Extension that provides rate limiting for Flask apps
+- prevents abuse of APIs by limiting number of requests
+- protects our API from malicious attacks like DDOS attacks (repetitive requests to overwhelm your server)
+- allows us to set limits per route or globally
+
+INSTALLING:
+pip install Flask-Limiter
+
+                                    How To Use
+Rate limit syntax: "5 per minute" or "100 per hour"
+
+
+                            What is Flask Caching?
+Extension to cache data and improve performance in Flask app by storing the results of expensive (frequently accessed) API calls 
+- Caching: storing frequently accessed data to a cache so you can reach into cache instead of a full db query
+= Increases speed at which data is returned and prevents repetitive calls to db
+- we only really use it 'GET' information
+

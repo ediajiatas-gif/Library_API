@@ -1,0 +1,80 @@
+When you have a token you can use certain routes
+Token allows them to access resources of our API (Example: movie pass, cannot go into theater w/o it)
+Example: Amazon can view products and home page, however cannot buy or checkout without account 
+
+We want to make sure (client/user) logs in. We validate creds, then we create a token and send it to the client(gets stored in browser), they will send their token everytime they make a request
+
+
+werkzeug this wi
+
+python JOSE (python Library)
+- creates and verifies tokens
+
+                                        CIRRICULUM NOTES
+What is Token Authentication?
+- Security mechanism where server issues a token (string) to a client after successful authentication. This token allows client to make requests.
+
+Why use Token Authentication?
+- Stateless: no need to store user session data on server
+- Commonly used in modern APIs with single=page apps and mobile apps
+
+Token-Based Authentication Flow (Flow path of Token)
+- Send POST request to server to authenticate (user sends credentials: email/user/password)
+- Verify Credentials: Server checks if credentials are valid
+- Create token: If valid, server encodes a token with user details
+- Send Token to Client: Server sends token back to client
+- Send Token to resources that require token authentication: Client sends the token to access resources (make requests)
+- Verify Token: Server verifies token for request
+- Access granted: If valid, server grants request and route functions
+- Access denied: If invalid, access denied 
+
+                                Implementing Token Authentication
+- we create a utils folder with util.py # file for token functions
+- we use python - jose (handles token encoding and decoding)
+    pip install python -jose
+
+                    Creating "encode_token" Function to generate JTWs.
+What is JWT (JSON Web Token) 
+- compact, URL safe token that is digitally signed. 
+Contains: 
+    - Header: Specifies type of token and algorithm (math method used to create token's signature) used         
+    - Payload: Contains claims such as user data (info packaged into token 'exp = expiration date', 'iat' = issued at (when token was created, 'sub' = subject who does this token belong to))
+    - Signature: Ensures token hasn't been altered 
+
+                                encode_token Function       
+
+The encode_token function will create a JWT for a user, based on their user ID
+
+                        Writing the encode_token Function
+
+SECRET_KEY = "a super secret, secret key" # used to sign tokens created only by my app will be validate tokens for my app
+
+def encode_token(user_id): #using unique pieces of info to make our tokens user specific
+    payload = {
+        'exp': datetime.now(timezone.utc) + timedelta(days=0,hours=1), #Setting the expiration time to an hour past now
+        'iat': datetime.now(timezone.utc), #Issued at
+        'sub':  str(user_id) #This needs to be a string or the token will be malformed and won't be able to be decoded.
+    }
+
+    token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+    return token
+
+Explanation:
+The token will expire after 0 days and 1 Hour (exp).
+iat is the time the token is "issued at".
+The sub claim (subject) contains the user’s ID which needs to be converted to a string.
+HS256 is a hashing algorithm to encode the token
+SECRET_KEY is a key specific to your application used to "sign" tokens. When validating tokens we look for this signature to ensure that the token is authentic. This prevents forgery of tokens.
+
+                            Creating token_required Decorator
+
+Decorator is a function that wraps around another function. You can Identify decorators by the @ symbol. ex: @decorator
+
+Decorator will be applied to protected routes to ensure that a valid token is present in the request headers
+
+Example:
+@user_bp.route('/', methods=['DELETE'])
+@token_rquired
+def delete_user(user_id): #Recieving user_id from the token
+    query = select(User).where(User.id == user_id)
+    user = db.session.execute(query).scalars().first()
